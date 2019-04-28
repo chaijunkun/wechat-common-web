@@ -4,13 +4,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
-import org.springframework.stereotype.Service;
-
 import com.github.chaijunkun.wechat.common.callback.WeChatCallbackDispatchService;
 import com.github.chaijunkun.wechat.common.callback.msg.TextMsgDispatchService;
 import com.github.chaijunkun.wechat.common.callback.xml.CommonXML.MsgType;
 import com.github.chaijunkun.wechat.common.callback.xml.msg.BaseMsg;
 import com.github.chaijunkun.wechat.common.callback.xml.msg.TextMsg;
+import org.springframework.stereotype.Service;
 
 /**
  * 
