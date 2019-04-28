@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd">
+           
+    <context:component-scan base-package="com.github.chaijunkun.wechat.common.web.service" />
+    
+    <bean id="weChatAPIConfig" class="com.github.chaijunkun.wechat.common.WeChatAPIConfig">
+    	<property name="appId" value="${com.qq.weixin.mp.appId}" />
+    	<property name="secret" value="${com.qq.weixin.mp.appsecret}" />
+    	<property name="callbackToken" value="${com.qq.weixin.mp.callbackToken}" />
+    	<property name="encodingAESKey" value="${com.qq.weixin.mp.encodingAESKey}"></property>
+    </bean>
+    
+    <bean id="tokenAPIURLFactory" class="com.github.chaijunkun.wechat.common.api.access.TokenAPIURLFactory" />
+    
+    <bean id="tokenAPI" class="com.github.chaijunkun.wechat.common.api.access.TokenAPI">
+    	<property name="urlFactory" ref="tokenAPIURLFactory" />
+    	<property name="config" ref="weChatAPIConfig" />
+    	<property name="redisTmpl" ref="redisTmpl" />
+    </bean>
+    
+    <bean id="weChatCallbackDispatcher" class="com.github.chaijunkun.wechat.common.callback.WeChatCallbackDispatcher">
+    	<property name="textMsgDispatchService">
+    		<bean class="com.github.chaijunkun.wechat.common.web.service.msg.impl.TextMsgDispatchServiceImpl"></bean>
+    	</property>
+    	<property name="voiceMsgDispatchService">
+    		<bean class="com.github.chaijunkun.wechat.common.web.service.msg.impl.VoiceMsgDispatchServiceImpl"></bean>
+    	</property>
+    	<property name="shortVideoMsgDispatchService">
+    		<bean class="com.github.chaijunkun.wechat.common.web.service.msg.impl.ShortVideoMsgDispatchServiceImpl"></bean>
+    	</property>
+    	<property name="subscribeEventDispatchService">
+    		<bean class="com.github.chaijunkun.wechat.common.web.service.event.impl.SubscribeEventDispatchServiceImpl"></bean>
+    	</property>
+    	<property name="unsubscribeEventDispatchService">
+    		<bean class="com.github.chaijunkun.wechat.common.web.service.event.impl.UnsubscribeEventDispatchServiceImpl"></bean>
+    	</property>
+    	<property name="locationEventDispatchService">
+    		<bean class="com.github.chaijunkun.wechat.common.web.service.event.impl.LocationEventDispatchServiceImpl"></bean>
+    	</property>
+    	<property name="customMenuEventDispatchService">
+    		<bean class="com.github.chaijunkun.wechat.common.web.service.event.impl.CustomMenuEventDispatchServiceImpl"></bean>
+    	</property>
+    </bean>
+</beans>
